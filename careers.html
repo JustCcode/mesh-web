@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вакансии - Mesh Messenger</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%236C63FF'>M</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #5651d9;
+            --primary-light: #8A85FF;
+            --secondary: #FF6584;
+            --dark: #1A1D2E;
+            --darker: #12141f;
+            --light: #F7F9FC;
+            --text: #4A4A68;
+            --text-light: #8C8CA1;
+            --success: #36D1B8;
+            --card-bg: #24273A;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        header {
+            background-color: rgba(26, 29, 46, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--light);
+            z-index: 1001;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-btn {
+            margin-left: 20px;
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 3px 0;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+        
+        .careers-hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .careers-hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .careers-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text-light);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+        }
+        
+        .job-openings {
+            padding: 100px 0;
+            background-color: var(--dark);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 42px;
+            color: var(--light);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-light);
+            font-size: 18px;
+        }
+        
+        .job-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+        
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .job-title {
+            font-size: 24px;
+            color: var(--light);
+            margin-bottom: 10px;
+        }
+        
+        .job-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .job-tag {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .job-description {
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
+        
+        .requirements-list, .skills-list {
+            margin-bottom: 25px;
+        }
+        
+        .requirements-list h4, .skills-list h4 {
+            color: var(--light);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .requirements-list ul, .skills-list ul {
+            color: var(--text-light);
+            padding-left: 20px;
+        }
+        
+        .requirements-list li, .skills-list li {
+            margin-bottom: 10px;
+        }
+        
+        .apply-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .apply-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .apply-section p {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-light:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+        }
+        
+        footer {
+            background-color: var(--darker);
+            color: white;
+            padding: 80px 0 30px;
+            width: 100%;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: var(--light);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 992px) {
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                z-index: 1000;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            nav ul li a {
+                font-size: 18px;
+                padding: 10px 0;
+                display: block;
+            }
+            
+            .nav-btn {
+                margin: 20px 0 0 0;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+            
+            .job-header {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .careers-hero h1 {
+                font-size: 36px;
+            }
+            
+            .careers-hero p {
+                font-size: 18px;
+            }
+            
+            .section-title h2 {
+                font-size: 36px;
+            }
+            
+            .apply-section h2 {
+                font-size: 36px;
+            }
+            
+            .job-card {
+                padding: 25px;
+            }
+            
+            .job-title {
+                font-size: 20px;
+            }
+            
+            .job-meta {
+                flex-wrap: wrap;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .careers-hero {
+                padding: 150px 0 80px;
+            }
+            
+            .careers-hero h1 {
+                font-size: 32px;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">M</div>
+                Mesh
+            </div>
+            
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <nav id="nav">
+                <ul>
+                    <li><a href="mesh.html">Главная</a></li>
+                    <li><a href="mesh.html#features">Возможности</a></li>
+                    <li><a href="mesh.html#security">Безопасность</a></li>
+                    <li><a href="mesh.html#details">Технологии</a></li>
+                    <li class="nav-btn"><a href="download.html" class="btn btn-primary">Скачать</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="careers-hero">
+        <div class="container">
+            <h1>Присоединяйтесь к команде Mesh</h1>
+            <p>Мы создаём будущее приватных коммуникаций. Присоединяйтесь к нашей команде, чтобы вместе строить самый безопасный мессенджер в мире.</p>
+            <a href="#openings" class="btn btn-primary">Смотреть вакансии</a>
+        </div>
+    </section>
+
+    <section class="job-openings" id="openings">
+        <div class="container">
+            <div class="section-title">
+                <h2>Открытые вакансии</h2>
+                <p>Станьте частью нашей команды и помогите нам изменить мир коммуникаций</p>
+            </div>
+            
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">C/C++ Разработчик</h3>
+                        <div class="job-meta">
+                            <span class="job-tag">Удалённая работа</span>
+                            <span class="job-tag">Полная занятость</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="job-description">
+                    <p>Мы ищем опытного C/C++ разработчика для работы над ядром нашего мессенджера. Вам предстоит работать над низкоуровневыми компонентами, сетевыми протоколами и криптографическими алгоритмами.</p>
+                </div>
+                
+                <div class="requirements-list">
+                    <h4>Требования:</h4>
+                    <ul>
+                        <li>Опыт работы с C/C++ от 3 лет</li>
+                        <li>Глубокие знания сетевых протоколов (TCP/IP, UDP, HTTP)</li>
+                        <li>Опыт работы с криптографическими библиотеками (OpenSSL, libsodium)</li>
+                        <li>Понимание принципов работы P2P сетей</li>
+                        <li>Знание многопоточного программирования и синхронизации</li>
+                        <li>Опыт работы с сетевым программированием (сокеты, асинхронный I/O)</li>
+                        <li>Умение оптимизировать код для работы с ограниченными ресурсами</li>
+                    </ul>
+                </div>
+                
+                <div class="skills-list">
+                    <h4>Будет плюсом:</h4>
+                    <ul>
+                        <li>Опыт работы с Tor, I2P или другими анонимными сетями</li>
+                        <li>Знание протокола Signal или других E2E-шифрованных протоколов</li>
+                        <li>Опыт разработки криптографических алгоритмов</li>
+                        <li>Знание ассемблера x86/ARM</li>
+                        <li>Опыт работы с сетевыми анализаторами (Wireshark)</li>
+                    </ul>
+                </div>
+                
+                <div class="skills-list">
+                    <h4>Софт-скилы:</h4>
+                    <ul>
+                        <li>Ответственность и внимательность к деталям</li>
+                        <li>Умение работать в команде и самостоятельно</li>
+                        <li>Стремление к постоянному обучению и развитию</li>
+                        <li>Критическое мышление и аналитические способности</li>
+                        <li>Умение эффективно коммуницировать в распределённой команде</li>
+                    </ul>
+                </div>
+                
+                <a href="https://t.me/mesh_im" class="btn btn-primary" target="_blank">Откликнуться на вакансию</a>
+            </div>
+            
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">Dart/Flutter Разработчик</h3>
+                        <div class="job-meta">
+                            <span class="job-tag">Удалённая работа</span>
+                            <span class="job-tag">Полная занятость</span>
+                            <span class="job-tag">Мобильная разработка</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="job-description">
+                    <p>Мы ищем талантливого Dart/Flutter разработчика для создания кроссплатформенного клиента нашего мессенджера. Вам предстоит работать над пользовательским интерфейсом и интеграцией с нашим безопасным бэкендом.</p>
+                </div>
+                
+                <div class="requirements-list">
+                    <h4>Требования:</h4>
+                    <ul>
+                        <li>Опыт разработки на Dart/Flutter от 2 лет</li>
+                        <li>Глубокое понимание архитектуры Flutter и жизненного цикла виджетов</li>
+                        <li>Опыт работы с различными подходами к управлению состоянием (BLoC, Provider, Riverpod)</li>
+                        <li>Знание принципов реактивного программирования (RxDart)</li>
+                        <li>Опыт интеграции с RESTful API и WebSockets</li>
+                        <li>Понимание нативных возможностей iOS и Android</li>
+                        <li>Опыт публикации приложений в AppStore и Google Play</li>
+                    </ul>
+                </div>
+                
+                <div class="skills-list">
+                    <h4>Будет плюсом:</h4>
+                    <ul>
+                        <li>Опыт работы с Flutter Web и Desktop</li>
+                        <li>Знание нативной разработки под iOS (Swift) или Android (Kotlin/Java)</li>
+                        <li>Опыт работы с Firebase сервисами</li>
+                        <li>Понимание принципов безопасности мобильных приложений</li>
+                        <li>Опыт настройки CI/CD для мобильных приложений</li>
+                    </ul>
+                </div>
+                
+                <div class="skills-list">
+                    <h4>Софт-скилы:</h4>
+                    <ul>
+                        <li>Внимание к пользовательскому опыту и деталям интерфейса</li>
+                        <li>Способность работать в agile-среде</li>
+                        <li>Умение эффективно сотрудничать с дизайнерами и бэкенд-разработчиками</li>
+                        <li>Проактивность в предложении улучшений продукта</li>
+                        <li>Готовность к постоянному изучению новых технологий</li>
+                    </ul>
+                </div>
+                
+                <a href="https://t.me/mesh_im" class="btn btn-primary" target="_blank">Откликнуться на вакансию</a>
+            </div>
+            
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">Python Разработчик</h3>
+                        <div class="job-meta">
+                            <span class="job-tag">Удалённая работа</span>
+                            <span class="job-tag">Полная занятость</span>
+                            <span class="job-tag">Бэкенд-разработка</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="job-description">
+                    <p>Нам нужен опытный Python разработчик для работы над серверной частью нашего мессенджера. Вы будете разрабатывать высоконагруженные и безопасные сервисы, обеспечивающие работу нашей P2P-сети.</p>
+                </div>
+                
+                <div class="requirements-list">
+                    <h4>Требования:</h4>
+                    <ul>
+                        <li>Опыт разработки на Python от 3 лет</li>
+                        <li>Глубокое знание асинхронного программирования (asyncio)</li>
+                        <li>Опыт работы с сетевым программированием и сокетами</li>
+                        <li>Знание фреймворков FastAPI, Django или Flask</li>
+                        <li>Опыт работы с базами данных (PostgreSQL, Redis)</li>
+                        <li>Понимание принципов разработки высоконагруженных систем</li>
+                        <li>Знание Docker и оркестрации контейнеров</li>
+                    </ul>
+                </div>
+                
+                <div class="skills-list">
+                    <h4>Будет плюсом:</h4>
+                    <ul>
+                        <li>Опыт работы с P2P-сетями или распределёнными системами</li>
+                        <li>Знание криптографических библиотек Python (cryptography, PyNaCl)</li>
+                        <li>Опыт работы с очередями сообщений (RabbitMQ, Kafka)</li>
+                        <li>Знание мониторинга и логирования (Prometheus, Grafana, ELK)</li>
+                        <li>Опыт работы в сфере безопасности или кибербезопасности</li>
+                    </ul>
+                </div>
+                
+                <div class="skills-list">
+                    <h4>Софт-скилы:</h4>
+                    <ul>
+                        <li>Системное мышление и понимание архитектурных паттернов</li>
+                        <li>Умение принимать решения в условиях неопределённости</li>
+                        <li>Способность к сложным техническим коммуникациям</li>
+                        <li>Ориентация на качество и надёжность кода</li>
+                        <li>Готовность к работе в распределённой команде</li>
+                    </ul>
+                </div>
+                
+                <a href="https://t.me/mesh_im" class="btn btn-primary" target="_blank">Откликнуться на вакансию</a>
+            </div>
+            
+            <div class="job-card">
+                <div class="job-header">
+                    <div>
+                        <h3 class="job-title">Security Researcher</h3>
+                        <div class="job-meta">
+                            <span class="job-tag">Удалённая работа</span>
+                            <span class="job-tag">Контракт</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="job-description">
+                    <p>Мы ищем специалиста по безопасности для анализа и улучшения защищённости нашего приложения. Вам предстоит проводить аудит кода, тестирование на проникновение и исследование новых векторов атак.</p>
+                </div>
+                
+                <div class="requirements-list">
+                    <h4>Требования:</h4>
+                    <ul>
+                        <li>Опыт в безопасности приложений или пентестинге</li>
+                        <li>Знание распространенных уязвимостей (OWASP Top 10)</li>
+                        <li>Опыт работы с инструментами анализа безопасности</li>
+                        <li>Понимание криптографических примитивов и протоколов</li>
+                        <li>Умение проводить реверс-инжиниринг</li>
+                    </ul>
+                </div>
+                
+                <a href="https://t.me/mesh_im" class="btn btn-primary" target="_blank">Откликнуться на вакансию</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="apply-section">
+        <div class="container">
+            <h2>Готовы изменить будущее приватности?</h2>
+            <p>Присылайте своё резюме и расскажите, почему вы хотите присоединиться к нашей команде.</p>
+            <a href="https://t.me/mesh_im" class="btn btn-light" target="_blank">Написать в Telegram</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Mesh</h3>
+                    <p>Современный мессенджер для абсолютно приватного и безопасного общения.</p>
+                    <div class="social-links">
+                        <a href="https://t.me/mesh_im" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Продукт</h3>
+                    <ul>
+                        <li><a href="mesh.html#features">Возможности</a></li>
+                        <li><a href="mesh.html#security">Безопасность</a></li>
+                        <li><a href="mesh.html#details">Технологии</a></li>
+                        <li><a href="download.html">Скачать</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Поддержка</h3>
+                    <ul>
+                        <li><a href="https://t.me/mesh_im" target="_blank">Помощь</a></li>
+                        <li><a href="careers.html">Вакансии</a></li>
+                        <li><a href="https://t.me/mesh_im" target="_blank">Сообщить о проблеме</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>О компании</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="careers.html">Работа у нас</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Mesh Messenger. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.getElementById('nav');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+        
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
