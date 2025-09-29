@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Безопасность - Mesh Messenger</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%236C63FF'>M</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #5651d9;
+            --primary-light: #8A85FF;
+            --secondary: #FF6584;
+            --dark: #1A1D2E;
+            --darker: #12141f;
+            --light: #F7F9FC;
+            --text: #4A4A68;
+            --text-light: #8C8CA1;
+            --success: #36D1B8;
+            --card-bg: #24273A;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        header {
+            background-color: rgba(26, 29, 46, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--light);
+            z-index: 1001;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-btn {
+            margin-left: 20px;
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 3px 0;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+        
+        .security-hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .security-hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .security-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text-light);
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(54, 209, 184, 0.1);
+            color: var(--success);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        .status-badge i {
+            margin-right: 8px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+        }
+        
+        .features-section {
+            padding: 100px 0;
+            background-color: var(--dark);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 42px;
+            color: var(--light);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-light);
+            font-size: 18px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 32px;
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .feature-card p {
+            color: var(--text-light);
+        }
+        
+        .development-status {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .development-status h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .development-status p {
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+        }
+        
+        .mission-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+        }
+        
+        .mission-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .mission-content h2 {
+            font-size: 42px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .mission-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        
+        .highlight-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: left;
+            border-left: 5px solid white;
+        }
+        
+        .highlight-box h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .compliance-section {
+            padding: 100px 0;
+            background-color: var(--darker);
+        }
+        
+        .compliance-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .compliance-text {
+            flex: 1;
+        }
+        
+        .compliance-text h2 {
+            font-size: 42px;
+            margin-bottom: 25px;
+            color: var(--light);
+        }
+        
+        .compliance-text p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .compliance-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .law-icon {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 80px;
+            box-shadow: 0 15px 30px rgba(108, 99, 255, 0.3);
+        }
+        
+        .privacy-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border-bottom: 1px solid transparent;
+        }
+        
+        .privacy-link:hover {
+            color: var(--primary-light);
+            border-bottom: 1px solid var(--primary-light);
+        }
+        
+        footer {
+            background-color: var(--darker);
+            color: white;
+            padding: 80px 0 30px;
+            width: 100%;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: var(--light);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .copyright a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .copyright a:hover {
+            color: var(--primary-light);
+        }
+        
+        @media (max-width: 992px) {
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                z-index: 1000;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            nav ul li a {
+                font-size: 18px;
+                padding: 10px 0;
+                display: block;
+            }
+            
+            .nav-btn {
+                margin: 20px 0 0 0;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+            
+            .compliance-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .security-hero h1 {
+                font-size: 36px;
+            }
+            
+            .security-hero p {
+                font-size: 18px;
+            }
+            
+            .section-title h2 {
+                font-size: 36px;
+            }
+            
+            .mission-content h2 {
+                font-size: 36px;
+            }
+            
+            .compliance-text h2 {
+                font-size: 36px;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+            }
+            
+            .development-status {
+                padding: 30px;
+            }
+            
+            .highlight-box {
+                padding: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .security-hero {
+                padding: 150px 0 80px;
+            }
+            
+            .security-hero h1 {
+                font-size: 32px;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .law-icon {
+                width: 150px;
+                height: 150px;
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">M</div>
+                Mesh
+            </div>
+            
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="policy.html">Конфиденциальность</a></li>
+                    <li><a href="index.html">Возможности</a></li>
+                    <li><a href="security.html">Безопасность</a></li>
+                    <li><a href="index.html#details">Технологии</a></li>
+                    <li><a href="careers.html">Вакансии</a></li>
+                    <li class="nav-btn"><a href="download.html" class="btn btn-primary">Скачать</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="security-hero">
+        <div class="container">
+            <div class="status-badge">
+                <i class="fas fa-shield-alt"></i>
+                В активной разработке
+            </div>
+            <h1>Безопасность превыше всего</h1>
+            <p>Mesh Messenger создаётся с фокусом на максимальную защиту ваших данных и приватности. Мы используем передовые технологии шифрования и безопасности.</p>
+            <a href="#features" class="btn btn-primary">Узнать о технологиях</a>
+        </div>
+    </section>
+
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Технологии безопасности</h2>
+                <p>Мы внедряем многоуровневую систему защиты для обеспечения полной конфиденциальности</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>End-to-End Шифрование</h3>
+                    <p>Все сообщения шифруются на устройстве отправителя и расшифровываются только на устройстве получателя. Никто, даже мы, не может получить доступ к вашим данным.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>Анонимность</h3>
+                    <p>Регистрация без привязки к телефону или email. Использование децентрализованных идентификаторов для максимальной анонимности.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>P2P Архитектура</h3>
+                    <p>Децентрализованная сеть без центральных серверов, что исключает единую точку отказа и делает перехват данных практически невозможным.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <h3>Биометрическая защита</h3>
+                    <p>Дополнительный уровень безопасности с использованием Face ID, Touch ID и других биометрических методов аутентификации.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hourglass-end"></i>
+                    </div>
+                    <h3>Самоуничтожение сообщений</h3>
+                    <p>Настройка времени жизни сообщений - от нескольких секунд до дней. После истечения времени сообщения безвозвратно удаляются.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3>Открытый код</h3>
+                    <p>Клиентская часть с открытым исходным кодом для проверки сообществом и независимыми аудиторами безопасности.</p>
+                </div>
+            </div>
+            
+            <div class="development-status">
+                <h3>Проект в активной разработке</h3>
+                <p>В настоящее время мы активно работаем над реализацией всех заявленных функций безопасности. Наша команда экспертов в области криптографии и кибербезопасности прилагает все усилия, чтобы создать самый защищённый мессенджер на рынке.</p>
+                <p>Мы постоянно тестируем и улучшаем наши системы защиты, чтобы обеспечить максимальный уровень безопасности для наших пользователей.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-content">
+                <h2>Наша миссия и ценности</h2>
+                <p>Мы стремимся создать безопасное цифровое пространство, где каждый может свободно общаться, не опасаясь за свою приватность.</p>
+                
+                <div class="highlight-box">
+                    <h3>Важная информация о целях проекта</h3>
+                    <p>Мы хотим чётко обозначить наши принципы и цели:</p>
+                    <ul style="margin-left: 20px; margin-top: 15px;">
+                        <li style="margin-bottom: 10px;">Наша цель - защита обычных пользователей от злоумышленников и компаний, которые собирают и продают персональные данные</li>
+                        <li style="margin-bottom: 10px;">Мы не поддерживаем и не способствуем нелегальной деятельности</li>
+                        <li style="margin-bottom: 10px;">Наша платформа создаётся для защиты приватности законопослушных граждан</li>
+                        <li>Мы действуем в полном соответствии с законодательством Российской Федерации</li>
+                    </ul>
+                </div>
+                
+                <p>Мы верим, что приватность - фундаментальное право человека в цифровую эпоху. Наша команда прилагает все усилия, чтобы угодить нашим пользователям и обеспечить им максимальный комфорт и безопасность.</p>
+                <p>Mesh Messenger создаётся для защиты ваших личных разговоров от посторонних глаз, а не для сокрытия противоправных действий.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="compliance-section">
+        <div class="container">
+            <div class="compliance-content">
+                <div class="compliance-text">
+                    <h2>Соответствие законодательству РФ</h2>
+                    <p>Мы тщательно следим за соблюдением всех требований российского законодательства в области защиты персональных данных и информационной безопасности.</p>
+                    <p>Наша платформа разрабатывается с учётом требований Федерального закона "О персональных данных" и других нормативных актов, регулирующих область информационных технологий в России.</p>
+                    <p>Мы открыты для диалога с регулирующими органами и готовы предоставлять всю необходимую информацию в установленном законом порядке.</p>
+                    <p>Подробнее о нашей политике обработки данных вы можете узнать в <a href="policy.html" class="privacy-link">Политике конфиденциальности</a>.</p>
+                </div>
+                <div class="compliance-visual">
+                    <div class="law-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Mesh</h3>
+                    <p>Современный мессенджер для абсолютно приватного и безопасного общения.</p>
+                    <div class="social-links">
+                        <a href="https://t.me/mesh_im" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Продукт</h3>
+                    <ul>
+                        <li><a href="index.html#features">Возможности</a></li>
+                        <li><a href="security.html">Безопасность</a></li>
+                        <li><a href="index.html#details">Технологии</a></li>
+                        <li><a href="download.html">Скачать</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Поддержка</h3>
+                    <ul>
+                        <li><a href="https://t.me/mesh_im" target="_blank">Помощь</a></li>
+                        <li><a href="careers.html">Вакансии</a></li>
+                        <li><a href="https://t.me/mesh_im" target="_blank">Сообщить о проблеме</a></li>
+                        <li><a href="policy.html">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>О компании</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="careers.html">Работа у нас</a></li>
+                        <li><a href="policy.html">Конфиденциальность</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Mesh Messenger. Все права защищены. | <a href="policy.html">Политика конфиденциальности</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.getElementById('nav');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+        
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

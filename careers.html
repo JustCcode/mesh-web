@@ -318,6 +318,39 @@
             box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
         }
         
+        /* Новая секция для политики конфиденциальности */
+        .privacy-notice {
+            padding: 60px 0;
+            background-color: var(--card-bg);
+            text-align: center;
+        }
+        
+        .privacy-notice h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .privacy-notice p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-light);
+            font-size: 18px;
+        }
+        
+        .privacy-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border-bottom: 1px solid transparent;
+        }
+        
+        .privacy-link:hover {
+            color: var(--primary-light);
+            border-bottom: 1px solid var(--primary-light);
+        }
+        
         footer {
             background-color: var(--darker);
             color: white;
@@ -392,6 +425,16 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             color: var(--text-light);
             font-size: 14px;
+        }
+        
+        .copyright a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .copyright a:hover {
+            color: var(--primary-light);
         }
         
         @media (max-width: 992px) {
@@ -487,6 +530,10 @@
             .footer-content {
                 flex-direction: column;
             }
+            
+            .privacy-notice h2 {
+                font-size: 28px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -526,9 +573,11 @@
             <nav id="nav">
                 <ul>
                     <li><a href="index.html">Главная</a></li>
+                    <li><a href="policy.html">Конфиденциальность</a></li>
                     <li><a href="index.html">Возможности</a></li>
-                    <li><a href="index.html#security">Безопасность</a></li>
+                    <li><a href="security.html">Безопасность</a></li>
                     <li><a href="index.html#details">Технологии</a></li>
+                    <li><a href="policy.html">Конфиденциальность</a></li>
                     <li class="nav-btn"><a href="download.html" class="btn btn-primary">Скачать</a></li>
                 </ul>
             </nav>
@@ -750,6 +799,15 @@
         </div>
     </section>
 
+    <!-- Новая секция с уведомлением о политике конфиденциальности -->
+    <section class="privacy-notice">
+        <div class="container">
+            <h2>Ваша конфиденциальность важна для нас</h2>
+            <p>Мы серьезно относимся к защите ваших персональных данных. Ознакомьтесь с нашей политикой конфиденциальности, чтобы узнать, как мы собираем, используем и защищаем вашу информацию.</p>
+            <a href="policy.html" class="btn btn-primary">Политика конфиденциальности</a>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -766,7 +824,7 @@
                     <h3>Продукт</h3>
                     <ul>
                         <li><a href="index.html#features">Возможности</a></li>
-                        <li><a href="index.html#security">Безопасность</a></li>
+                        <li><a href="security.html">Безопасность</a></li>
                         <li><a href="index.html#details">Технологии</a></li>
                         <li><a href="download.html">Скачать</a></li>
                     </ul>
@@ -777,19 +835,21 @@
                         <li><a href="https://t.me/mesh_im" target="_blank">Помощь</a></li>
                         <li><a href="careers.html">Вакансии</a></li>
                         <li><a href="https://t.me/mesh_im" target="_blank">Сообщить о проблеме</a></li>
+                        <li><a href="policy.html">Политика конфиденциальности</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>О компании</h3>
                     <ul>
-                        <li><a href="#">О нас</a></li>
+                        <li><a href="about.html">О нас</a></li>
                         <li><a href="#">Блог</a></li>
                         <li><a href="careers.html">Работа у нас</a></li>
+                        <li><a href="policy.html">Конфиденциальность</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Mesh Messenger. Все права защищены.</p>
+                <p>&copy; 2025 Mesh Messenger. Все права защищены. | <a href="policy.html">Политика конфиденциальности</a></p>
             </div>
         </div>
     </footer>

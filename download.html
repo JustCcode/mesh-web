@@ -310,7 +310,19 @@
         }
         .social-links a:hover { background-color: var(--primary); transform: translateY(-3px); }
 
-        .copyright { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-light); font-size: 14px; }
+         .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .copyright a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
 
         /* Animations */
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -354,10 +366,12 @@
 
             <nav id="nav">
                 <ul>
-                    <li><a href="index.htmlfeatures">Возможности</a></li>
-                    <li><a href="index.htmlsecurity">Безопасность</a></li>
-                    <li><a href="index.htmldetails">Технологии</a></li>
                     <li class="nav-btn"><a href="index.html">На главную</a></li>
+                    <li><a href="policy.html">Конфиденциальность</a></li>
+                    <li><a href="index.htmlfeatures">Возможности</a></li>
+                    <li><a href="security.html">Безопасность</a></li>
+                    <li><a href="index.htmldetails">Технологии</a></li>
+                    
                 </ul>
             </nav>
         </div>
@@ -400,7 +414,7 @@
                     <h3>Продукт</h3>
                     <ul>
                         <li><a href="index.html#features">Возможности</a></li>
-                        <li><a href="index.html#security">Безопасность</a></li>
+                        <li><a href="security.html">Безопасность</a></li>
                         <li><a href="index.html#details">Технологии</a></li>
                         <li><a href="download.html">Скачать</a></li>
                     </ul>
@@ -415,7 +429,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Mesh Messenger. Все права защищены.</p>
+                <p>&copy; 2025 Mesh Messenger. Все права защищены. | <a href="policy.html">Политика конфиденциальности</a></p>
             </div>
         </div>
     </footer>

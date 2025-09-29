@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика конфиденциальности - Mesh Messenger</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%236C63FF'>M</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #5651d9;
+            --primary-light: #8A85FF;
+            --secondary: #FF6584;
+            --dark: #1A1D2E;
+            --darker: #12141f;
+            --light: #F7F9FC;
+            --text: #4A4A68;
+            --text-light: #8C8CA1;
+            --success: #36D1B8;
+            --card-bg: #24273A;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        header {
+            background-color: rgba(26, 29, 46, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--light);
+            z-index: 1001;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+            white-space: nowrap;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-btn {
+            margin-left: 20px;
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 3px 0;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+        
+        .policy-hero {
+            padding: 180px 0 80px;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .policy-hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .policy-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 20px;
+            color: var(--text-light);
+        }
+        
+        .last-updated {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+        }
+        
+        .policy-content {
+            padding: 100px 0;
+            background-color: var(--dark);
+        }
+        
+        .policy-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            transition: var(--transition);
+        }
+        
+        .policy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .policy-section {
+            margin-bottom: 40px;
+        }
+        
+        .policy-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .policy-section h2 {
+            font-size: 28px;
+            color: var(--light);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .policy-section h3 {
+            font-size: 20px;
+            color: var(--light);
+            margin: 25px 0 15px;
+        }
+        
+        .policy-section p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+        
+        .policy-section ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .policy-section li {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+        
+        .highlight {
+            background-color: rgba(108, 99, 255, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        
+        .contact-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .contact-section p {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-light:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+        }
+        
+        footer {
+            background-color: var(--darker);
+            color: white;
+            padding: 80px 0 30px;
+            width: 100%;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: var(--light);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .copyright a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .copyright a:hover {
+            color: var(--primary-light);
+        }
+        
+        @media (max-width: 992px) {
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                z-index: 1000;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav.active {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            nav ul li a {
+                font-size: 18px;
+                padding: 10px 0;
+                display: block;
+            }
+            
+            .nav-btn {
+                margin: 20px 0 0 0;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .policy-hero h1 {
+                font-size: 36px;
+            }
+            
+            .policy-hero p {
+                font-size: 18px;
+            }
+            
+            .policy-card {
+                padding: 30px;
+            }
+            
+            .policy-section h2 {
+                font-size: 24px;
+            }
+            
+            .contact-section h2 {
+                font-size: 36px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .policy-hero {
+                padding: 150px 0 60px;
+            }
+            
+            .policy-hero h1 {
+                font-size: 32px;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .policy-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">M</div>
+                Mesh
+            </div>
+            
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="policy.html">Конфиденциальность</a></li>
+                    <li><a href="index.html">Возможности</a></li>
+                    <li><a href="security.html">Безопасность</a></li>
+                    <li><a href="index.html#details">Технологии</a></li>
+                    <li><a href="careers.html">Вакансии</a></li>
+                    <li class="nav-btn"><a href="download.html" class="btn btn-primary">Скачать</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="policy-hero">
+        <div class="container">
+            <h1>Политика конфиденциальности</h1>
+            <p>Мы в Mesh ценим вашу конфиденциальность и безопасность. Ознакомьтесь с нашей политикой обработки данных.</p>
+            <div class="last-updated">Последнее обновление: 29 сентября 2025 года</div>
+        </div>
+    </section>
+
+    <section class="policy-content">
+        <div class="container">
+            <div class="policy-card">
+                <div class="policy-section">
+                    <h2>1. Общие положения</h2>
+                    <p>1.1. Настоящая Политика конфиденциальности действует для всех пользователей сайта и будущего мессенджера Mesh.</p>
+                    <p>1.2. Использование сайта означает согласие пользователя с условиями данной Политики.</p>
+                    <p>1.3. Мессенджер находится в разработке; на текущем этапе пользовательские данные не собираются.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2>2. Собираемая информация</h2>
+                    <p>2.1. На этапе разработки мы не собираем и не храним персональные данные пользователей.</p>
+                    <p>2.2. В будущем, при запуске продукта, возможный сбор данных будет осуществляться только с согласия пользователя и в объеме, необходимом для работы сервиса.</p>
+                    
+                    <h3>2.3. Типы данных, которые могут собираться (после запуска):</h3>
+                    <ul>
+                        <li>уникальные идентификаторы аккаунта (например, сгенерированные ключи SSH);</li>
+                        <li>данные для безопасного функционирования приложения (например, настройки, статистика использования, метаданные в минимальном объеме);</li>
+                        <li>контактные данные, только если пользователь предоставит их добровольно.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2>3. Цели обработки данных</h2>
+                    <p>3.1. Обработка данных будет осуществляться исключительно для:</p>
+                    <ul>
+                        <li>обеспечения функциональности мессенджера;</li>
+                        <li>поддержки и улучшения качества сервиса;</li>
+                        <li>соблюдения законных требований и защиты прав пользователей;</li>
+                        <li>взаимодействия с государственными органами только по законным основаниям.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2>4. Хранение и защита данных</h2>
+                    <p>4.1. Все данные будут храниться на защищенных серверах с использованием современных методов шифрования.</p>
+                    <p>4.2. Мы применяем меры по защите информации от несанкционированного доступа, утраты и изменения.</p>
+                    <p>4.3. Доступ к персональным данным будет ограничен только уполномоченными сотрудниками компании.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2>5. Права пользователя</h2>
+                    <p>Пользователь имеет право:</p>
+                    <ul>
+                        <li>получать информацию о своих данных, которые мы храним;</li>
+                        <li>требовать исправления, удаления или ограничения обработки своих данных;</li>
+                        <li>в любой момент отозвать согласие на обработку данных, если оно будет предоставлено;</li>
+                        <li>обращаться в компетентные органы по вопросам защиты персональных данных.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2>6. Взаимодействие с государственными органами</h2>
+                    <p>6.1. Мы соблюдаем российское законодательство и готовы сотрудничать с государственными органами только при наличии законного основания, например:</p>
+                    <ul>
+                        <li>запросы правоохранительных органов в рамках расследования преступлений;</li>
+                        <li>требования Федеральной службы по надзору в сфере связи, информационных технологий и массовых коммуникаций (Роскомнадзор) по соблюдению законодательства РФ;</li>
+                        <li>иные случаи, предусмотренные действующим законодательством.</li>
+                    </ul>
+                    <p>6.2. Любое предоставление данных госорганам осуществляется только в объеме, строго необходимом по закону.</p>
+                    
+                    <div class="highlight">
+                        <p>Мы стремимся к максимальной прозрачности в вопросах взаимодействия с государственными органами и будем уведомлять пользователей о подобных запросах, если это не запрещено законом.</p>
+                    </div>
+                </div>
+
+                <div class="policy-section">
+                    <h2>7. Политика по отношению к детям</h2>
+                    <p>7.1. Сервис не предназначен для пользователей младше 14 лет.</p>
+                    <p>7.2. Мы не собираем сознательно персональные данные детей.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2>8. Изменения в Политике конфиденциальности</h2>
+                    <p>8.1. Мы оставляем за собой право изменять данную Политику в любое время.</p>
+                    <p>8.2. Все изменения будут публиковаться на сайте с указанием даты обновления.</p>
+                    <p>8.3. Продолжение использования сайта после публикации изменений означает согласие с новой Политикой.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2>9. Контактная информация</h2>
+                    <p>Пока сайт находится в разработке, прямой контакт через e-mail не указывается. В будущем контактные данные будут доступны на сайте для обращений по вопросам конфиденциальности.</p>
+                    <p>По текущим вопросам вы можете обратиться к нам через наш Telegram-канал.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <h2>Остались вопросы о конфиденциальности?</h2>
+            <p>Свяжитесь с нами, и мы с радостью ответим на все ваши вопросы о защите данных и приватности.</p>
+            <a href="https://t.me/mesh_im" class="btn btn-light" target="_blank">Написать в Telegram</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Mesh</h3>
+                    <p>Современный мессенджер для абсолютно приватного и безопасного общения.</p>
+                    <div class="social-links">
+                        <a href="https://t.me/mesh_im" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Продукт</h3>
+                    <ul>
+                        <li><a href="index.html#features">Возможности</a></li>
+                        <li><a href="security.html">Безопасность</a></li>
+                        <li><a href="index.html#details">Технологии</a></li>
+                        <li><a href="download.html">Скачать</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Поддержка</h3>
+                    <ul>
+                        <li><a href="https://t.me/mesh_im" target="_blank">Помощь</a></li>
+                        <li><a href="careers.html">Вакансии</a></li>
+                        <li><a href="https://t.me/mesh_im" target="_blank">Сообщить о проблеме</a></li>
+                        <li><a href="policy.html">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>О компании</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="careers.html">Работа у нас</a></li>
+                        <li><a href="policy.html">Конфиденциальность</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Mesh Messenger. Все права защищены. | <a href="policy.html">Политика конфиденциальности</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.getElementById('nav');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+        
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
